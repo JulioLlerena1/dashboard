@@ -8,7 +8,7 @@ function App() {
     <Grid container spacing={5} sx={{ justifyContent: "left", alignItems: "center"}}>
 
          {/* Encabezado */}
-         <Grid size={{xs:12, md:12}}>Elemento: Encabezado </Grid>
+         <Grid size={{xs:12, md:12}}>Elemento:Encabezado</Grid>
 
          {/* Alertas */}
          <Grid size={{xs:12, md:12}}>Elemento: Alertas</Grid>
