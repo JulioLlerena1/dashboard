@@ -14,7 +14,7 @@ function App() {
          <Grid size={{xs:12, md:12}}><HeaderUI/></Grid>
 
          {/* Alertas */}
-         <Grid size={{xs:12, md:12}}><AlertUI description="Esta es una alerta de éxito" /></Grid>
+         <Grid size={{xs:12, md:12}} container sx={{ justifyContent: "right", alignItems: "center" }}><AlertUI description="Esta es una alerta de éxito" /></Grid>
 
          {/* Selector */}
          <Grid size={{xs:12, md:3}}><SelectorUI/></Grid>
