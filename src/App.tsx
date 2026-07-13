@@ -2,36 +2,74 @@ import { Grid } from '@mui/material';
 import HeaderUI from './components/HeaderUI';
 import AlertUI from './components/AlertUI';
 import SelectorUI from './components/SelectorUI';
+import IndicatorUI from './components/IndicatorUI';
+import useFetchData from './hooks/useFetchData';
+
 import './App.css'
 
 function App() {
+  const dataFetcherOutput = useFetchData();
 
   return (
-    
-    <Grid container spacing={5} sx={{ justifyContent: "left", alignItems: "center"}}>
 
-         {/* Encabezado */}
-         <Grid size={{xs:12, md:12}}><HeaderUI/></Grid>
+    <Grid container spacing={5} sx={{ justifyContent: "left", alignItems: "center" }}>
 
-         {/* Alertas */}
-         <Grid size={{xs:12, md:12}} container sx={{ justifyContent: "right", alignItems: "center" }}><AlertUI description="Esta es una alerta de éxito" /></Grid>
+      {/* Encabezado */}
+      <Grid size={{ xs: 12, md: 12 }}><HeaderUI /></Grid>
 
-         {/* Selector */}
-         <Grid size={{xs:12, md:3}}><SelectorUI/></Grid>
+      {/* Alertas */}
+      <Grid size={{ xs: 12, md: 12 }} container sx={{ justifyContent: "right", alignItems: "center" }}><AlertUI description="Esta es una alerta de éxito" /></Grid>
 
-         {/* Indicadores */}
-         <Grid size={{xs:12, md:9}}>Elemento: Indicadores</Grid>
+      {/* Selector */}
+      <Grid size={{ xs: 12, md: 3 }}><SelectorUI /></Grid>
 
-         {/* Gráfico */}
-         <Grid size={{xs:12, md:6}} sx={{ display:{xs:"none", md: "bock"} }}>Elemento: Gráfico</Grid>
+      {/* Indicadores */}
+      <Grid container size={{ xs: 12, md: 9 }} >
 
-         {/* Tabla */}
-         <Grid size={{xs:12, md:6}} sx={{ display:{xs:"none", md: "bock"} }}>Elemento: Tabla</Grid>
+        <Grid size={{ xs: 12, md: 3 }}>
+          {dataFetcherOutput &&
+            (<IndicatorUI
+              title='Temperatura (2m)'
+              description={`${dataFetcherOutput.current.temperature_2m} ${dataFetcherOutput.current_units.temperature_2m}`} />)
+          }
+        </Grid>
 
-         {/* Información adicional */}
-         <Grid size={{xs:12, md:12}} >Elemento: Información adicional</Grid>
+        <Grid size={{ xs: 12, md: 3 }}>
+          {dataFetcherOutput &&
+            (<IndicatorUI
+              title='Temperatura Aparente (2m)'
+              description={`${dataFetcherOutput.current.apparent_temperature} ${dataFetcherOutput.current_units.apparent_temperature}`} />)
+          }
+        </Grid>
+
+        <Grid size={{ xs: 12, md: 3 }}>
+          {dataFetcherOutput &&
+            (<IndicatorUI
+              title='Velocidad del Viento'
+              description={`${dataFetcherOutput.current.wind_speed_10m} ${dataFetcherOutput.current_units.wind_speed_10m}`} />)
+          }
+        </Grid>
+
+        <Grid size={{ xs: 12, md: 3 }}>
+          {dataFetcherOutput &&
+            (<IndicatorUI
+              title='Humedad Relativa'
+              description={`${dataFetcherOutput.current.relative_humidity_2m} ${dataFetcherOutput.current_units.relative_humidity_2m}`} />)
+          }
+        </Grid>
 
       </Grid>
+
+      {/* Gráfico */}
+      <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: "none", md: "bock" } }}>Elemento: Gráfico</Grid>
+
+      {/* Tabla */}
+      <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: "none", md: "bock" } }}>Elemento: Tabla</Grid>
+
+      {/* Información adicional */}
+      <Grid size={{ xs: 12, md: 12 }} >Elemento: Información adicional</Grid>
+
+    </Grid>
 
   )
 }
