@@ -20,8 +20,7 @@ export default function SelectorUI() {
             id="city-simple-select"
             label="Ciudad"
             onChange={handleChange} 
-            value={cityInput}
-            >
+            value={cityInput}>
 
             <MenuItem value="" disabled><em>Seleccione una ciudad</em></MenuItem>
             <MenuItem value={"guayaquil"}>Guayaquil</MenuItem>
