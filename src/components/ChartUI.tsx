@@ -16,10 +16,20 @@ export default function ChartUI(obj:ChartInfo) {
          <LineChart
             height={300}
             series={[
-               { data: obj.temp.slice(0,25), label: 'temperature_2m'},
-               { data: obj.wind.slice(0,25), label: 'wind_speed_10m'},
+               { data: obj.temp, label: 'temperature_2m (°C)'},
+               { data: obj.wind, label: 'wind_speed_10m  (km/h)'},
             ]}
-            xAxis={[{ scaleType: 'point', data: obj.time.slice(0,25) }]}
+            xAxis={[{ 
+               scaleType: 'point', 
+               data: obj.time,
+               valueFormatter: (value) => {
+                  return value.endsWith("T00:00")
+                     ? value.split("T")[0].split("-")[2]
+                     : "";
+               },
+               tickInterval: (_, index) => index % 24 === 0,
+
+            }]}
          />
       </>
    );

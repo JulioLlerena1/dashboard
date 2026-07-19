@@ -7,11 +7,11 @@ import IndicatorUI from './components/IndicatorUI';
 import useFetchData from './hooks/useFetchData';
 import TableUI from './components/TableUI';
 import ChartUI from './components/ChartUI';
-
+import { Skeleton } from "@mui/material";
 
 function App() {
    
-   const dataFetcherOutput = useFetchData();
+   const { data, loading } = useFetchData();
 
    return (
       <Grid container spacing={5} sx={{ justifyContent: "left", alignItems: "center" }}>
@@ -33,35 +33,52 @@ function App() {
          <Grid container size={{ xs: 12, md: 9 }}>
             
             <Grid size={{ xs: 12, md: 3 }}>
-                  {dataFetcherOutput &&
+
+               {loading ? (
+                     <Skeleton
+                        variant="rounded"
+                        width="97%"
+                        height={100}
+                        animation="wave"
+                     />
+                  ) : 
+                  (data &&
                      (<IndicatorUI
-                     title='Temperatura (2m)'
-                     description={ `${dataFetcherOutput.current.temperature_2m} ${dataFetcherOutput.current_units.temperature_2m}` } />)
-                  }
+                     title='Temperatura'
+                     description={ `${data.current.temperature_2m} ${data.current_units.temperature_2m}` } />)
+               )}
+
             </Grid>
 
             <Grid size={{ xs: 12, md: 3 }}>
-               {dataFetcherOutput &&
+               {loading ? (
+                     <Skeleton
+                        variant="rounded"
+                        width="97%"
+                        height={100}
+                        animation="wave"
+                     />
+                  ) :  data &&
                   (<IndicatorUI
-                        title='Temperatura aparente'
-                        description={ `${dataFetcherOutput.current.apparent_temperature} ${dataFetcherOutput.current_units.apparent_temperature}` } />)
+                        title='Temp. aparente'
+                        description={ `${data.current.apparent_temperature} ${data.current_units.apparent_temperature}` } />)
                }
             </Grid>
 
             <Grid size={{ xs: 12, md: 3 }}>
-               {dataFetcherOutput &&
+               {data &&
                   (<IndicatorUI
                         title='Velocidad del viento'
-                        description={ `${dataFetcherOutput.current.wind_speed_10m} ${dataFetcherOutput.current_units.wind_speed_10m}` } />)
+                        description={ `${data.current.wind_speed_10m} ${data.current_units.wind_speed_10m}` } />)
                }
                
             </Grid>
 
             <Grid size={{ xs: 12, md: 3 }}>
-               {dataFetcherOutput &&
+               {data &&
                   (<IndicatorUI
                         title='Humedad relativa'
-                        description={ `${dataFetcherOutput.current.relative_humidity_2m} ${dataFetcherOutput.current_units.relative_humidity_2m}` } />)
+                        description={ `${data.current.relative_humidity_2m} ${data.current_units.relative_humidity_2m}` } />)
                }
 
             </Grid>
@@ -71,8 +88,8 @@ function App() {
          {/* Gráfico */}
          <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: "none", md: "block"} }}>
 
-            {dataFetcherOutput &&
-                  (<ChartUI time={dataFetcherOutput.hourly.time} temp={dataFetcherOutput.hourly.temperature_2m} wind={dataFetcherOutput.hourly.wind_speed_10m}/>)
+            {data &&
+                  (<ChartUI time={data.hourly.time} temp={data.hourly.temperature_2m} wind={data.hourly.wind_speed_10m}/>)
             }
 
             
@@ -80,7 +97,10 @@ function App() {
 
          {/* Tabla */}
          <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: "none", md: "block"} }}>
-            <TableUI />
+            {data &&
+                  (<TableUI time={data.hourly.time} temp={data.hourly.temperature_2m} wind={data.hourly.wind_speed_10m}  />)
+            }
+            
          </Grid>
 
          {/* Información adicional */}
