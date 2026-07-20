@@ -6,11 +6,14 @@ import IndicatorUI from './components/IndicatorUI';
 import useFetchData from './hooks/useFetchData';
 import TableUI from './components/TableUI';
 import ChartUI from './components/ChartUI';
+import { useState } from 'react';
 
 import './App.css'
 
 function App() {
-  const dataFetcherOutput = useFetchData();
+
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const dataFetcherOutput = useFetchData(selectedOption);
 
   return (
 
@@ -23,7 +26,7 @@ function App() {
       <Grid size={{ xs: 12, md: 12 }} container sx={{ justifyContent: "right", alignItems: "center" }}><AlertUI description="Esta es una alerta de éxito" /></Grid>
 
       {/* Selector */}
-      <Grid size={{ xs: 12, md: 3 }}><SelectorUI /></Grid>
+      <Grid size={{ xs: 12, md: 3 }}><SelectorUI onOptionSelect={setSelectedOption} /></Grid>
 
       {/* Indicadores */}
       <Grid container size={{ xs: 12, md: 9 }} >

@@ -1,11 +1,20 @@
 import { useEffect, useState } from 'react';
 import type { OpenMeteoResponse } from '../types/DashboardTypes';
 
-export default function useFetchData() : OpenMeteoResponse | null {
+const CITYCOORDS: Record<string, { latitude: number; longitude: number }> = {
+    'Guayaquil': { latitude: -2.1962, longitude: -79.8862 },
+    'Quito': { latitude: -0.1807, longitude: -78.4678 },
+    'Manta': { latitude: -0.9471, longitude: -80.7089 },
+    'Cuenca': { latitude: -2.9006, longitude: -79.0045 }
+};
+
+export default function useFetchData(selectedOption: string | null) : OpenMeteoResponse {
 
     const [data, setData] = useState<OpenMeteoResponse | null>(null);
 
-    const url = 'https://api.open-meteo.com/v1/forecast?latitude=-1.25&longitude=-78.25&hourly=temperature_2m,wind_speed_10m&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m&timezone=America%2FNew_York';
+    const cityConfig = selectedOption != null? CITYCOORDS[selectedOption] : CITYCOORDS['Guayaquil'];
+
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${cityConfig.latitude}&longitude=${cityConfig.longitude}&hourly=temperature_2m,wind_speed_10m&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m`;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -23,8 +32,8 @@ export default function useFetchData() : OpenMeteoResponse | null {
         };
 
         fetchData();
-    }, []);
+    }, [selectedOption]);
 
-    return data;
+    return data as OpenMeteoResponse;
 
 }
