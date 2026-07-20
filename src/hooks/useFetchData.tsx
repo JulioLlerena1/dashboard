@@ -5,7 +5,7 @@ export default function useFetchData() : OpenMeteoResponse | null {
 
     const [data, setData] = useState<OpenMeteoResponse | null>(null);
 
-    const url = 'https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m&timezone=America%2FChicago';
+    const url = 'https://api.open-meteo.com/v1/forecast?latitude=-1.25&longitude=-78.25&hourly=temperature_2m,wind_speed_10m&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m&timezone=America%2FNew_York';
 
     useEffect(() => {
         const fetchData = async () => {
