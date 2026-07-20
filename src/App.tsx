@@ -8,10 +8,14 @@ import useFetchData from './hooks/useFetchData';
 import TableUI from './components/TableUI';
 import ChartUI from './components/ChartUI';
 import { Skeleton } from "@mui/material";
+import {useState } from 'react';
+
 
 function App() {
    
-   const { data, loading } = useFetchData();
+   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+   const { data, loading } = useFetchData(selectedOption);
+
 
    return (
       <Grid container spacing={5} sx={{ justifyContent: "left", alignItems: "center" }}>
@@ -27,7 +31,7 @@ function App() {
          </Grid>
 
          {/* Selector */}
-         <Grid size={{ xs: 12, md: 3 }}><SelectorUI></SelectorUI></Grid>
+         <Grid size={{ xs: 12, md: 3 }}><SelectorUI onOptionSelect={setSelectedOption} /></Grid>
 
          {/* Indicadores */}
          <Grid container size={{ xs: 12, md: 9 }}>
