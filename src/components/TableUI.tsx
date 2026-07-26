@@ -55,7 +55,17 @@ export default function TableUI(obj:ChartInfo) {
    const rows = combineArrays(obj.time, obj.temp, obj.wind);
 
    return (
-      <Box sx={{ height: 350, width: '100%' }}>
+      <Box
+         sx={{
+            height: 350,
+            width: '100%',
+            borderRadius: 3,
+            overflow: 'hidden',
+            border: '1px solid rgba(148, 163, 184, 0.2)',
+            boxShadow: '0 8px 24px rgba(15, 23, 42, 0.08)',
+            backgroundColor: '#ffffff',
+         }}
+      >
          <DataGrid
             rows={rows}
             columns={columns}
@@ -68,6 +78,32 @@ export default function TableUI(obj:ChartInfo) {
             }}
             pageSizeOptions={[24]}
             disableRowSelectionOnClick
+            slotProps={{
+               pagination: {
+                  showLastButton: true,
+                  showFirstButton: true,
+                  labelDisplayedRows: () => '',
+               },
+            }}
+            sx={{
+               '& .MuiDataGrid-columnHeaders': {
+                  backgroundColor: '#f8fafc',
+                  color: '#0f172a',
+                  fontWeight: 700,
+               },
+               '& .MuiDataGrid-cell': {
+                  color: '#334155',
+               },
+               '& .MuiDataGrid-row:hover': {
+                  backgroundColor: '#f8fafc',
+               },
+               '& .MuiDataGrid-footerContainer': {
+                  backgroundColor: '#f8fafc',
+                  '& .MuiTablePagination-displayedRows': {
+                     display: 'none',
+                  },
+               },
+            }}
          />
       </Box>
    );

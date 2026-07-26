@@ -11,13 +11,13 @@ export default function ChartUI(obj:ChartInfo) {
    return (
       <>
          <Typography variant="h5" component="div">
-            Temperature & Wind speed
+            Temperatura y velocidad del viento
          </Typography>
          <LineChart
             height={300}
             series={[
-               { data: obj.temp, label: 'temperature_2m (°C)'},
-               { data: obj.wind, label: 'wind_speed_10m  (km/h)'},
+               { data: obj.temp, label: 'temperatura_2m (°C)'},
+               { data: obj.wind, label: 'velocidad_viento_10m  (km/h)'},
             ]}
             xAxis={[{ 
                scaleType: 'point', 

@@ -7,14 +7,13 @@ import IndicatorUI from './components/IndicatorUI';
 import useFetchData from './hooks/useFetchData';
 import TableUI from './components/TableUI';
 import ChartUI from './components/ChartUI';
-import { Skeleton } from "@mui/material";
 import {useState } from 'react';
 
 
 function App() {
    
    const [selectedOption, setSelectedOption] = useState<string | null>(null);
-   const { data, loading } = useFetchData(selectedOption);
+   const data = useFetchData(selectedOption);
 
 
    return (
@@ -38,14 +37,7 @@ function App() {
             
             <Grid size={{ xs: 12, md: 3 }}>
 
-               {loading ? (
-                     <Skeleton
-                        variant="rounded"
-                        width="97%"
-                        height={100}
-                        animation="wave"
-                     />
-                  ) : 
+               {
                   (data &&
                      (<IndicatorUI
                      title='Temperatura'
@@ -53,16 +45,9 @@ function App() {
                )}
 
             </Grid>
-
+               
             <Grid size={{ xs: 12, md: 3 }}>
-               {loading ? (
-                     <Skeleton
-                        variant="rounded"
-                        width="97%"
-                        height={100}
-                        animation="wave"
-                     />
-                  ) :  data &&
+               {data &&
                   (<IndicatorUI
                         title='Temp. aparente'
                         description={ `${data.current.apparent_temperature} ${data.current_units.apparent_temperature}` } />)
