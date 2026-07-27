@@ -13,7 +13,63 @@ import './App.css'
 function App() {
 
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const dataFetcherOutput = useFetchData(selectedOption);
+  const { data, loading, error } = useFetchData(selectedOption);
+
+  if (loading) {
+
+    return (
+      <Grid container spacing={5} sx={{ justifyContent: "left", alignItems: "center" }}>
+
+        {/* Encabezado */}
+        <Grid size={{ xs: 12, md: 12 }}><HeaderUI /></Grid>
+
+        {/* Alertas */}
+        <Grid size={{ xs: 12, md: 12 }} container sx={{ justifyContent: "right", alignItems: "center" }}><AlertUI description="Esta es una alerta de éxito" /></Grid>
+
+        {/* Selector */}
+        <Grid size={{ xs: 12, md: 3 }}><SelectorUI onOptionSelect={setSelectedOption} /></Grid>
+
+        {/* Indicadores */}
+        <Grid container size={{ xs: 12, md: 9 }} >
+
+          <Grid size={{ xs: 12, md: 3 }}>
+            <img src="./assets/loading-2.gif" alt="Mi gif animado" />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 3 }}>
+            <img src="./assets/loading-2.gif" alt="Mi gif animado" />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 3 }}>
+            <img src="./assets/loading-2.gif" alt="Mi gif animado" />
+          </Grid>
+
+          <Grid size={{ xs: 12, md: 3 }}>
+            <img src="./assets/loading-2.gif" alt="Mi gif animado" />
+          </Grid>
+
+        </Grid>
+
+        {/* Gráfico */}
+        <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
+          <img src="./assets/loading-2.gif" alt="Mi gif animado" />
+        </Grid>
+
+        {/* Tabla */}
+        <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
+          <img src="./assets/loading-2.gif" alt="Mi gif animado" />
+        </Grid>
+
+        {/* Información adicional */}
+        <Grid size={{ xs: 12, md: 12 }} >Elemento: Información adicional</Grid>
+
+      </Grid>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
 
@@ -32,34 +88,34 @@ function App() {
       <Grid container size={{ xs: 12, md: 9 }} >
 
         <Grid size={{ xs: 12, md: 3 }}>
-          {dataFetcherOutput &&
+          {data &&
             (<IndicatorUI
               title='Temperatura (2m)'
-              description={`${dataFetcherOutput.current.temperature_2m} ${dataFetcherOutput.current_units.temperature_2m}`} />)
+              description={`${data.current.temperature_2m} ${data.current_units.temperature_2m}`} />)
           }
         </Grid>
 
         <Grid size={{ xs: 12, md: 3 }}>
-          {dataFetcherOutput &&
+          {data &&
             (<IndicatorUI
               title='Temperatura Aparente (2m)'
-              description={`${dataFetcherOutput.current.apparent_temperature} ${dataFetcherOutput.current_units.apparent_temperature}`} />)
+              description={`${data.current.apparent_temperature} ${data.current_units.apparent_temperature}`} />)
           }
         </Grid>
 
         <Grid size={{ xs: 12, md: 3 }}>
-          {dataFetcherOutput &&
+          {data &&
             (<IndicatorUI
               title='Velocidad del Viento'
-              description={`${dataFetcherOutput.current.wind_speed_10m} ${dataFetcherOutput.current_units.wind_speed_10m}`} />)
+              description={`${data.current.wind_speed_10m} ${data.current_units.wind_speed_10m}`} />)
           }
         </Grid>
 
         <Grid size={{ xs: 12, md: 3 }}>
-          {dataFetcherOutput &&
+          {data &&
             (<IndicatorUI
               title='Humedad Relativa'
-              description={`${dataFetcherOutput.current.relative_humidity_2m} ${dataFetcherOutput.current_units.relative_humidity_2m}`} />)
+              description={`${data.current.relative_humidity_2m} ${data.current_units.relative_humidity_2m}`} />)
           }
         </Grid>
 
@@ -67,18 +123,18 @@ function App() {
 
       {/* Gráfico */}
       <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
-        {dataFetcherOutput && 
+        {data && 
         
-        (<ChartUI time={dataFetcherOutput.hourly.time} temp={dataFetcherOutput.hourly.temperature_2m} windSpeed={dataFetcherOutput.hourly.wind_speed_10m} />)
+        (<ChartUI time={data.hourly.time} temp={data.hourly.temperature_2m} windSpeed={data.hourly.wind_speed_10m} />)
 
         }
       </Grid>
 
       {/* Tabla */}
       <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
-        {dataFetcherOutput &&
+        {data &&
 
-        <TableUI date={dataFetcherOutput.hourly.time} temp={dataFetcherOutput.hourly.temperature_2m} windSpeed={dataFetcherOutput.hourly.wind_speed_10m} />
+        <TableUI date={data.hourly.time} temp={data.hourly.temperature_2m} windSpeed={data.hourly.wind_speed_10m} />
         }
       </Grid>
 

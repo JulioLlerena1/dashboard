@@ -8,9 +8,11 @@ const CITYCOORDS: Record<string, { latitude: number; longitude: number }> = {
     'Cuenca': { latitude: -2.9006, longitude: -79.0045 }
 };
 
-export default function useFetchData(selectedOption: string | null) : OpenMeteoResponse {
+export default function useFetchData(selectedOption: string | null) : { data: OpenMeteoResponse | null; loading: boolean; error: string | null } {
 
     const [data, setData] = useState<OpenMeteoResponse | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const cityConfig = selectedOption != null? CITYCOORDS[selectedOption] : CITYCOORDS['Guayaquil'];
 
@@ -28,12 +30,15 @@ export default function useFetchData(selectedOption: string | null) : OpenMeteoR
 
             } catch (error) {
                 console.error('Error fetching data:', error);
+                setError(error as string);
+            } finally {
+                setLoading(false);
             }
         };
 
         fetchData();
     }, [selectedOption]);
 
-    return data as OpenMeteoResponse;
+    return {data, loading, error};
 
 }
