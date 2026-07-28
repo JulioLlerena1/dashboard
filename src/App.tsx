@@ -13,9 +13,14 @@ import {useState } from 'react';
 function App() {
    
    const [selectedOption, setSelectedOption] = useState<string | null>(null);
-   const data = useFetchData(selectedOption);
+   const {data, loading, error} = useFetchData(selectedOption);
 
-
+   if (error) {
+      return (
+         <AlertUI description={error} />
+      );
+   }
+   
    return (
       <Grid container spacing={5} sx={{ justifyContent: "left", alignItems: "center" }}>
 
@@ -37,42 +42,47 @@ function App() {
             
             <Grid size={{ xs: 12, md: 3 }}>
 
-               {
-                  (data &&
-                     (<IndicatorUI
-                     title='Temperatura'
-                     description={ `${data.current.temperature_2m} ${data.current_units.temperature_2m}` } />)
-               )}
+               <IndicatorUI
+               title='Temperatura'
+               description={ data ? `${data.current.temperature_2m} ${data.current_units.temperature_2m}` : ''}
+               load={loading} 
+               />
+               
 
             </Grid>
                
             <Grid size={{ xs: 12, md: 3 }}>
-               {data &&
-                  (<IndicatorUI
-                        title='Temp. aparente'
-                        description={ `${data.current.apparent_temperature} ${data.current_units.apparent_temperature}` } />)
-               }
-            </Grid>
 
-            <Grid size={{ xs: 12, md: 3 }}>
-               {data &&
-                  (<IndicatorUI
-                        title='Velocidad del viento'
-                        description={ `${data.current.wind_speed_10m} ${data.current_units.wind_speed_10m}` } />)
-               }
+               <IndicatorUI
+                     title='Temp. aparente'
+                     description={ data ? `${data.current.apparent_temperature} ${data.current_units.apparent_temperature}` : '' }
+                     load={loading}
+                     />
                
             </Grid>
 
             <Grid size={{ xs: 12, md: 3 }}>
-               {data &&
-                  (<IndicatorUI
-                        title='Humedad relativa'
-                        description={ `${data.current.relative_humidity_2m} ${data.current_units.relative_humidity_2m}` } />)
-               }
+               
+               <IndicatorUI
+                     title='Velocidad del viento'
+                     description={ data ? `${data.current.wind_speed_10m} ${data.current_units.wind_speed_10m}` : '' }
+                     load={loading}
+                     />
+               
+            </Grid>
+
+            <Grid size={{ xs: 12, md: 3 }}>
+               <IndicatorUI
+                     title='Humedad relativa'
+                     description={ data ? `${data.current.relative_humidity_2m} ${data.current_units.relative_humidity_2m}` : '' }
+                     load={loading}
+                     />
+               
 
             </Grid>
             
          </Grid>
+
 
          {/* Gráfico */}
          <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: "none", md: "block"} }}>

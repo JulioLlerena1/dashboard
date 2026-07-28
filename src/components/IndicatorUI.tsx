@@ -5,9 +5,30 @@ import Typography from '@mui/material/Typography';
  interface IndicatorUIProps {
      title?: string;
      description?: string;
+     load: boolean;
  }
 
 export default function IndicatorUI(props: IndicatorUIProps) {
+
+    if (props.load) {
+       return (
+        <Card
+            sx={{
+                width: '100%',
+                height: '100%',
+                minHeight: 120,
+                borderRadius: 3,
+                boxShadow: '0 8px 24px rgba(15, 23, 42, 0.08)',
+                border: '1px solid rgba(148, 163, 184, 0.2)',
+                background: 'linear-gradient(135deg, #ffffff 0%, #f8fafc 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}
+        ></Card> )
+    }
+
+
     return (
         <Card
             sx={{
