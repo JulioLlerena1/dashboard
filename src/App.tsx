@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Grid, CircularProgress } from '@mui/material';
 import HeaderUI from './components/HeaderUI';
 import AlertUI from './components/AlertUI';
 import SelectorUI from './components/SelectorUI';
@@ -33,37 +33,37 @@ function App() {
         {/* Indicadores */}
         <Grid container size={{ xs: 12, md: 9 }} >
 
-          <Grid size={{ xs: 12, md: 3 }}>
-            <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
+          <Grid size={{ xs: 12, md: 3 }} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <CircularProgress size={56} />
           </Grid>
 
-          <Grid size={{ xs: 12, md: 3 }}>
-            <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
+          <Grid size={{ xs: 12, md: 3 }} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <CircularProgress size={56} />
           </Grid>
 
-          <Grid size={{ xs: 12, md: 3 }}>
-            <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
+          <Grid size={{ xs: 12, md: 3 }} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <CircularProgress size={56} />
           </Grid>
 
-          <Grid size={{ xs: 12, md: 3 }}>
-            <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
+          <Grid size={{ xs: 12, md: 3 }} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <CircularProgress size={56} />
           </Grid>
 
         </Grid>
 
         {/* Gráfico */}
-        <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
-          <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
+        <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center' }}>
+          <CircularProgress size={96} />
         </Grid>
 
         {/* Tabla */}
-        <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
-          <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
+        <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: 'none', md: 'flex' }, justifyContent: 'center', alignItems: 'center' }}>
+          <CircularProgress size={96} />
         </Grid>
 
         {/* Información adicional */}
-        <Grid size={{ xs: 12, md: 12 }} >
-          <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
+        <Grid size={{ xs: 12, md: 12 }} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <CircularProgress size={80} />
         </Grid>
 
       </Grid>

@@ -1,48 +1,78 @@
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select, { type SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+import { Box, FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent, Typography } from '@mui/material';
 import { useState } from 'react';
 
 interface SelectorProps {
-    onOptionSelect: (option: string) => void;
+   onOptionSelect: (option: string) => void;
 }
 
-export default function Selector({ onOptionSelect }: SelectorProps) {
 
-    const [cityInput, setCityInput] = useState('');
+export default function SelectorUI({ onOptionSelect }: SelectorProps) {
+
+   const [cityInput, setCityInput] = useState('guayaquil');
 
     const handleChange = (event: SelectChangeEvent<string>) => {
-
         setCityInput(event.target.value);
         onOptionSelect(event.target.value);
+    };
 
-    }
+   return (
+      <Box>
+         <Typography
+            variant="subtitle1"
+            sx={{
+               fontWeight: 700,
+               color: '#1e293b',
+               mb: 1.2,
+               letterSpacing: '-0.01em',
+            }}
+         >
+            Selecciona una ciudad
+         </Typography>
 
-
-
-    return (
-        <FormControl fullWidth>
+         <FormControl fullWidth size="small">
             <InputLabel id="city-select-label">Ciudad</InputLabel>
             <Select
-                onChange={handleChange}
-                labelId="city-select-label"
-                id="city-simple-select"
-                label="Ciudad">
-                value={cityInput}
-                <MenuItem disabled><em>Seleccione una ciudad</em></MenuItem>
-                <MenuItem value={"Guayaquil"}>Guayaquil</MenuItem>
-                <MenuItem value={"Quito"}>Quito</MenuItem>
-                <MenuItem value={"Manta"}>Manta</MenuItem>
-                <MenuItem value={"Cuenca"}>Cuenca</MenuItem>
+               labelId="city-select-label"
+               id="city-simple-select"
+               label="Ciudad"
+               onChange={handleChange}
+               value={cityInput}
+               sx={{
+                  borderRadius: 2,
+                  '& .MuiOutlinedInput-notchedOutline': {
+                     borderColor: 'rgba(148, 163, 184, 0.45)',
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                     borderColor: '#2563eb',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                     borderColor: '#2563eb',
+                  },
+               }}>
+
+               <MenuItem value="" disabled><em>Seleccione una ciudad</em></MenuItem>
+               <MenuItem value={"Guayaquil"}>Guayaquil</MenuItem>
+               <MenuItem value={"Quito"}>Quito</MenuItem>
+               <MenuItem value={"Manta"}>Manta</MenuItem>
+               <MenuItem value={"Cuenca"}>Cuenca</MenuItem>
             </Select>
+         </FormControl>
 
-            {cityInput && ( //Si cityinput existe
-                <p>
-                    Información del clima en <span style={{ textTransform: 'capitalize', fontWeight: 'bold' }} > {cityInput} </span>
-                </p>
-            )}
-
-        </FormControl>
-    )
+         {cityInput && (
+            <Typography
+               variant="caption"
+               sx={{
+                  mt: 1.5,
+                  color: '#334155',
+                  fontWeight: 500,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 0.5,
+               }}
+            >
+               Información del clima en <Box component="span" sx={{ textTransform: 'capitalize', fontWeight: 700, color: '#1d4ed8' }}>{cityInput}</Box>
+            </Typography>
+         )}
+      </Box>
+   )
 }

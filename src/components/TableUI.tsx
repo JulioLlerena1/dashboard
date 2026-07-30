@@ -17,21 +17,29 @@ const columns: GridColDef[] = [
    { field: 'date',
      headerName: 'Fecha',
      flex: 1,
+     align: "center",
+    headerAlign: "center",
    },
    {
       field: 'hour',
       headerName: 'Hora',
       flex:1,
+      align: "center",
+    headerAlign: "center",
    },
    {
       field: 'value1',
       headerName: 'Temperatura',
       flex:1,
+      align: "center",
+    headerAlign: "center",
    },
    {
       field: 'value2',
       headerName: 'Velocidad',
       flex:1,
+      align: "center",
+    headerAlign: "center",
    },
 ];
 
@@ -63,6 +71,34 @@ export default function TableUI(obj: TableInfo) {
             }}
             pageSizeOptions={[24]}
             disableRowSelectionOnClick
+
+            slotProps={{
+               pagination: {
+                  showLastButton: true,
+                  showFirstButton: true,
+                  labelDisplayedRows: () => '',
+               },
+            }}
+
+             sx={{
+               '& .MuiDataGrid-columnHeaders': {
+                  backgroundColor: '#f8fafc',
+                  color: '#0f172a',
+                  fontWeight: 700,
+               },
+               '& .MuiDataGrid-cell': {
+                  color: '#334155',
+               },
+               '& .MuiDataGrid-row:hover': {
+                  backgroundColor: '#f8fafc',
+               },
+               '& .MuiDataGrid-footerContainer': {
+                  backgroundColor: '#f8fafc',
+                  '& .MuiTablePagination-displayedRows': {
+                     display: 'none',
+                  },
+               },
+            }}
          />
       </Box>
    );
