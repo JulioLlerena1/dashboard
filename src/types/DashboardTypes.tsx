@@ -40,4 +40,5 @@ export interface Hourly {
   time: string[]
   temperature_2m: number[]
   wind_speed_10m: number[]
+  weather_code: number[]
 }

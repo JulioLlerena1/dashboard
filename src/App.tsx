@@ -6,6 +6,7 @@ import IndicatorUI from './components/IndicatorUI';
 import useFetchData from './hooks/useFetchData';
 import TableUI from './components/TableUI';
 import ChartUI from './components/ChartUI';
+import WeatherCalendarUI from './components/WeatherCalendarUI';
 import { useState } from 'react';
 
 import './App.css'
@@ -33,35 +34,37 @@ function App() {
         <Grid container size={{ xs: 12, md: 9 }} >
 
           <Grid size={{ xs: 12, md: 3 }}>
-            <img src="./assets/loading-2.gif" alt="Mi gif animado" />
+            <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
           </Grid>
 
           <Grid size={{ xs: 12, md: 3 }}>
-            <img src="./assets/loading-2.gif" alt="Mi gif animado" />
+            <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
           </Grid>
 
           <Grid size={{ xs: 12, md: 3 }}>
-            <img src="./assets/loading-2.gif" alt="Mi gif animado" />
+            <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
           </Grid>
 
           <Grid size={{ xs: 12, md: 3 }}>
-            <img src="./assets/loading-2.gif" alt="Mi gif animado" />
+            <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
           </Grid>
 
         </Grid>
 
         {/* Gráfico */}
         <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
-          <img src="./assets/loading-2.gif" alt="Mi gif animado" />
+          <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
         </Grid>
 
         {/* Tabla */}
         <Grid size={{ xs: 6, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
-          <img src="./assets/loading-2.gif" alt="Mi gif animado" />
+          <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
         </Grid>
 
         {/* Información adicional */}
-        <Grid size={{ xs: 12, md: 12 }} >Elemento: Información adicional</Grid>
+        <Grid size={{ xs: 12, md: 12 }} >
+          <img src="/workspaces/dashboard/src/assets/loading-2.gif" alt="Mi gif animado" />
+        </Grid>
 
       </Grid>
     );
@@ -139,7 +142,15 @@ function App() {
       </Grid>
 
       {/* Información adicional */}
-      <Grid size={{ xs: 12, md: 12 }} >Elemento: Información adicional</Grid>
+      <Grid size={{ xs: 12, md: 12 }}>
+        {data && (
+          <WeatherCalendarUI
+            time={data.hourly.time}
+            temperature={data.hourly.temperature_2m}
+            weatherCode={data.hourly.weather_code}
+          />
+        )}
+      </Grid>
 
     </Grid>
 

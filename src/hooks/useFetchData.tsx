@@ -16,28 +16,29 @@ export default function useFetchData(selectedOption: string | null) : { data: Op
 
     const cityConfig = selectedOption != null? CITYCOORDS[selectedOption] : CITYCOORDS['Guayaquil'];
 
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${cityConfig.latitude}&longitude=${cityConfig.longitude}&hourly=temperature_2m,wind_speed_10m&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${cityConfig.latitude}&longitude=${cityConfig.longitude}&hourly=temperature_2m,wind_speed_10m,weather_code&current=temperature_2m,relative_humidity_2m,apparent_temperature,wind_speed_10m`;
 
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
+            setError(null);
 
             try {
-
                 const response = await fetch(url);
                 const jsonData: OpenMeteoResponse = await response.json();
 
                 setData(jsonData);
-
+                
             } catch (error) {
                 console.error('Error fetching data:', error);
-                setError(error as string);
+                setError(error instanceof Error ? error.message : 'Error desconocido');
             } finally {
                 setLoading(false);
             }
         };
 
         fetchData();
-    }, [selectedOption]);
+    }, [url]);
 
     return {data, loading, error};
 
